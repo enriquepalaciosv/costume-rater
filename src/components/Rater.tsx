@@ -1,10 +1,10 @@
 import React from "react";
-import { Card, Flex, Typography, Rate } from "antd";
+import { Card, Space, Typography, Rate, Descriptions } from "antd";
 
 export const Rater: React.FC = () => {
   const { Title } = Typography;
   return (
-    <Flex vertical>
+    <Space direction="vertical" size="middle" style={{ display: 'flex', alignItems: 'center' }}>
       <Card
         hoverable
         style={{ width: 240 }}
@@ -15,11 +15,23 @@ export const Rater: React.FC = () => {
           />
         }
       >
-        <Flex justify="center">
-          <Title level={3}>Los increibles</Title>
-        </Flex>
+        <Title level={3}>Los increibles</Title>
       </Card>
-      <Rate />
-    </Flex>
+      <Descriptions bordered>
+        <Descriptions.Item label="Divertido">
+          <Rate />
+        </Descriptions.Item>
+      </Descriptions>
+      <Descriptions bordered>
+        <Descriptions.Item label="Creativo">
+          <Rate />
+        </Descriptions.Item>
+      </Descriptions>
+      <Descriptions bordered>
+        <Descriptions.Item label="Hecho a mano">
+          <Rate />
+        </Descriptions.Item>
+      </Descriptions>
+    </Space>
   );
 };
