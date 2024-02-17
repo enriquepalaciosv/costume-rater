@@ -13,13 +13,13 @@ export const Rater: React.FC = () => {
     'Pasarela',
   ];
 
-  const avatar = getAvatar(Competitor.AdultFemale)
-  const current = 'Un Villano/Héroe';
+  const avatar = getAvatar(Competitor.Group)
+  const current = 'Nombre de un villano o héreo muy largo que no cabe en la pantalla el texto debe estar centrado';
 
   return (
     <Space direction="vertical" size="middle" style={{ display: 'flex', alignItems: 'center' }}>
       <Image src={avatar} width={200} />
-      <Typography.Title level={3}>{current}</Typography.Title>
+      <Typography.Title level={3} style={{ textAlign: 'center' }}>{current}</Typography.Title>
       <List
         bordered
         dataSource={data}
