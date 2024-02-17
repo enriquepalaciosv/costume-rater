@@ -1,6 +1,7 @@
 import React from "react";
-import { List, Space, Typography, Rate, Descriptions, Avatar } from "antd";
-import { UserOutlined } from '@ant-design/icons';
+import { List, Space, Typography, Rate, Image } from "antd";
+import { getAvatar } from '../utils/avatar-util';
+import { Participant } from "../types/Participant";
 
 export const Rater: React.FC = () => {
   const { Title, Text } = Typography;
@@ -13,11 +14,13 @@ export const Rater: React.FC = () => {
     'Pasarela',
   ];
 
+  const avatar = getAvatar(Participant.AdultFemale)
+  const current = 'Un Villano/Héroe';
+
   return (
     <Space direction="vertical" size="middle" style={{ display: 'flex', alignItems: 'center' }}>
-
-      <Avatar size={64} icon={<UserOutlined />} />
-      <Title level={3}>Los increibles</Title>
+      <Image src={avatar} width={200} />
+      <Title level={3}>{current}</Title>
       <List
         bordered
         dataSource={data}
@@ -28,7 +31,6 @@ export const Rater: React.FC = () => {
           </List.Item>
         )}
       />
-
     </Space>
   );
 };
