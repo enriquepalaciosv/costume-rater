@@ -4,7 +4,7 @@ import { Rater } from "./components/Rater";
 
 function App() {
   return (
-    <Flex vertical justify="center" align="center">
+    <Flex vertical justify="center" align="center" style={{ margin: '16px' }}>
       <Rater />
     </Flex>
   );

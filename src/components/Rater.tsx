@@ -1,37 +1,34 @@
 import React from "react";
-import { Card, Space, Typography, Rate, Descriptions } from "antd";
+import { List, Space, Typography, Rate, Descriptions, Avatar } from "antd";
+import { UserOutlined } from '@ant-design/icons';
 
 export const Rater: React.FC = () => {
-  const { Title } = Typography;
+  const { Title, Text } = Typography;
+
+  const data = [
+    'Divertido',
+    'Original',
+    'Hecho a mano',
+    'Maquillaje',
+    'Pasarela',
+  ];
+
   return (
     <Space direction="vertical" size="middle" style={{ display: 'flex', alignItems: 'center' }}>
-      <Card
-        hoverable
-        style={{ width: 240 }}
-        cover={
-          <img
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
-      >
-        <Title level={3}>Los increibles</Title>
-      </Card>
-      <Descriptions bordered>
-        <Descriptions.Item label="Divertido">
-          <Rate />
-        </Descriptions.Item>
-      </Descriptions>
-      <Descriptions bordered>
-        <Descriptions.Item label="Creativo">
-          <Rate />
-        </Descriptions.Item>
-      </Descriptions>
-      <Descriptions bordered>
-        <Descriptions.Item label="Hecho a mano">
-          <Rate />
-        </Descriptions.Item>
-      </Descriptions>
+
+      <Avatar size={64} icon={<UserOutlined />} />
+      <Title level={3}>Los increibles</Title>
+      <List
+        bordered
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item>
+            <Text style={{ marginRight: '8px' }}>{item}</Text>
+            <Rate />
+          </List.Item>
+        )}
+      />
+
     </Space>
   );
 };
