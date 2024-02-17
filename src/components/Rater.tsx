@@ -14,7 +14,7 @@ export const Rater: React.FC = () => {
   ];
 
   const avatar = getAvatar(Competitor.Group)
-  const current = 'Nombre de un villano o héreo muy largo que no cabe en la pantalla el texto debe estar centrado';
+  const current = 'Nombre del disfraz';
 
   return (
     <Space direction="vertical" size="middle" style={{ display: 'flex', alignItems: 'center' }}>
