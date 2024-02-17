@@ -1,7 +1,7 @@
 import React from "react";
 import { List, Space, Typography, Rate, Image } from "antd";
 import { getAvatar } from '../utils/avatar-util';
-import { Participant } from "../types/Participant";
+import { Competitor } from "../types/Competitor";
 
 export const Rater: React.FC = () => {
   const { Title, Text } = Typography;
@@ -14,7 +14,7 @@ export const Rater: React.FC = () => {
     'Pasarela',
   ];
 
-  const avatar = getAvatar(Participant.AdultFemale)
+  const avatar = getAvatar(Competitor.AdultFemale)
   const current = 'Un Villano/Héroe';
 
   return (

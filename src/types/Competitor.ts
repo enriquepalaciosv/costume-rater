@@ -1,4 +1,4 @@
-export enum Participant {
+export enum Competitor {
   Group,
   Boy,
   Girl,

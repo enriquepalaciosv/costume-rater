@@ -6,23 +6,23 @@ import girl from "../icons/girl.svg";
 import boy from "../icons/boy.svg";
 import group from "../icons/group.svg";
 import person from "../icons/person.svg";
-import { Participant } from "../types/Participant";
+import { Competitor } from "../types/Competitor";
 
-export const getAvatar = (type?: Participant) => {
+export const getAvatar = (type?: Competitor) => {
   switch (type) {
-    case Participant.Group:
+    case Competitor.Group:
       return group;
-    case Participant.Boy:
+    case Competitor.Boy:
       return boy;
-    case Participant.Girl:
+    case Competitor.Girl:
       return girl;
-    case Participant.YoungFemale:
+    case Competitor.YoungFemale:
       return youngFemale;
-    case Participant.YoungMale:
+    case Competitor.YoungMale:
       return youngMale;
-    case Participant.AdultFemale:
+    case Competitor.AdultFemale:
       return adultFemale;
-    case Participant.AdultMale:
+    case Competitor.AdultMale:
       return adultMale;
     default:
       return person;
