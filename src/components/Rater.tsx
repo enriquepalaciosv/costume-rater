@@ -8,7 +8,7 @@ export const Rater: React.FC = () => {
   const data = [
     'Divertido',
     'Original',
-    'Hecho a mano',
+    'A mano',
     'Maquillaje',
     'Pasarela',
   ];
