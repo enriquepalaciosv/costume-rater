@@ -8,8 +8,40 @@ import group from "../icons/group.svg";
 import person from "../icons/person.svg";
 import { Competitor } from "../types/Competitor";
 
-export const getAvatar = (type?: Competitor) => {
-  switch (type) {
+export const avatars = [
+  {
+    value: Competitor.AdultFemale,
+    label: "Adulto mujer",
+  },
+  {
+    value: Competitor.AdultMale,
+    label: "Adulto varón",
+  },
+  {
+    value: Competitor.YoungFemale,
+    label: "Joven mujer",
+  },
+  {
+    value: Competitor.YoungMale,
+    label: "Joven varón",
+  },
+  {
+    value: Competitor.Boy,
+    label: "Niño",
+  },
+  {
+    value: Competitor.Girl,
+    label: "Niña",
+  },
+  {
+    value: Competitor.Group,
+    label: "Grupo",
+  },
+];
+
+export const getAvatar = (type?: Competitor | string) => {
+  const competitorType = type as Competitor;
+  switch (competitorType) {
     case Competitor.Group:
       return group;
     case Competitor.Boy:

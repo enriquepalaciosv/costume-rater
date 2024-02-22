@@ -1,9 +1,9 @@
 export enum Competitor {
-  Group,
-  Boy,
-  Girl,
-  YoungMale,
-  YoungFemale,
-  AdultMale,
-  AdultFemale,
+  Group = "Group",
+  Boy = "Boy",
+  Girl = "Girl",
+  YoungMale = "YoungMale",
+  YoungFemale = "YoungFemale",
+  AdultMale = "AdultMale",
+  AdultFemale = "AdultFemale",
 }
