@@ -45,7 +45,7 @@ function Moderation() {
   const selectType = (avatarId?: string) => {
     if (avatarId) {
       setAvatar(getAvatar(avatarId));
-      const avatar: any = avatars.find((av) => av.value == avatarId);
+      const avatar: any = avatars.find((av) => av.value === avatarId);
       setType(avatar);
     } else {
       setAvatar(getAvatar());
@@ -85,7 +85,7 @@ function Moderation() {
           <Button
             type="primary"
             disabled={
-              current?.id != undefined || (!current && (!name || !type))
+              current?.id !== undefined || (!current && (!name || !type))
             }
             onClick={() =>
               setCurrent({ name: "name", type: "Group", id: "12345" })
