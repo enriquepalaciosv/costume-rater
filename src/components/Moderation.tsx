@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent, useEffect, useCallback } from "react";
 import {
   Space,
   Image,
@@ -28,10 +28,10 @@ const Moderation = () => {
   const [avatar, setAvatar] = useState(getAvatar());
   const [competitors, setCompetitors] = useState<any[]>();
 
-  const loadCompetitors = async () => {
+  const loadCompetitors = useCallback(async () => {
     const all = await getAllCompetitors();
     setCompetitors(all);
-  };
+  }, [getAllCompetitors]);
 
   useEffect(() => {
     loadCompetitors();
