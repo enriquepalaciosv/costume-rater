@@ -1,29 +1,31 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { Space, Image, Input, Select, Button, Typography, List } from "antd";
 import { getAvatar, avatars } from "../utils/avatar-util";
 import { useState } from "react";
 import { useFirebase } from "../hooks/useFirebase";
 
 const Moderation = () => {
-  const { saveCompetitor, updateCompetitor, deleteCompetitor } = useFirebase();
+  const {
+    saveCompetitor,
+    updateCompetitor,
+    deleteCompetitor,
+    getAllCompetitors,
+  } = useFirebase();
 
   const [id, setId] = useState<string>();
   const [name, setName] = useState<string>();
   const [type, setType] = useState<string>();
   const [avatar, setAvatar] = useState(getAvatar());
+  const [competitors, setCompetitors] = useState<any[]>();
 
-  const competitors = [
-    {
-      id: "Id#1234567876543",
-      name: "Ani - Bruja Escarlata",
-      type: "YoungFemale",
-    },
-    {
-      id: "Id#143353452543",
-      name: "Enrique - Doctor Strange",
-      type: "YoungMale",
-    },
-  ];
+  const loadCompetitors = async () => {
+    const all = await getAllCompetitors();
+    setCompetitors(all);
+  };
+
+  useEffect(() => {
+    loadCompetitors();
+  }, [loadCompetitors]);
 
   const reset = () => {
     setId(undefined);

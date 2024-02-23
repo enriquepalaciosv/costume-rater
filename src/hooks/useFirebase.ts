@@ -8,6 +8,8 @@ import {
   push,
   update,
   remove,
+  get,
+  DataSnapshot,
 } from "firebase/database";
 
 export const useFirebase = () => {
@@ -66,7 +68,28 @@ export const useFirebase = () => {
     }
   };
 
-  return { saveCompetitor, updateCompetitor, deleteCompetitor };
+  const getAllCompetitors = async () => {
+    if (firebaseDb) {
+      const competitorsRef = ref(firebaseDb, "competitors");
+      const dataSnapshot: DataSnapshot = await get(competitorsRef);
+
+      if (dataSnapshot.exists()) {
+        const competitorsData: Record<string, any> = dataSnapshot.val();
+        const competitorsArray = Object.values(competitorsData);
+
+        return competitorsArray;
+      } else {
+        return [];
+      }
+    }
+  };
+
+  return {
+    saveCompetitor,
+    updateCompetitor,
+    deleteCompetitor,
+    getAllCompetitors,
+  };
 };
 
 export default useFirebase;
