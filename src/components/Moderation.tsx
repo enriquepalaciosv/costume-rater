@@ -1,5 +1,14 @@
 import React, { ChangeEvent, useEffect } from "react";
-import { Space, Image, Input, Select, Button, Typography, List } from "antd";
+import {
+  Space,
+  Image,
+  Input,
+  Select,
+  Button,
+  Typography,
+  List,
+  Popconfirm,
+} from "antd";
 import { getAvatar, avatars } from "../utils/avatar-util";
 import { useState } from "react";
 import { useFirebase } from "../hooks/useFirebase";
@@ -15,6 +24,7 @@ const Moderation = () => {
   const [id, setId] = useState<string>();
   const [name, setName] = useState<string>();
   const [type, setType] = useState<string>();
+  const [status, setStatus] = useState<string>();
   const [avatar, setAvatar] = useState(getAvatar());
   const [competitors, setCompetitors] = useState<any[]>();
 
@@ -31,6 +41,7 @@ const Moderation = () => {
     setId(undefined);
     setName(undefined);
     setType(undefined);
+    setStatus(undefined);
     setAvatar(getAvatar());
   };
 
@@ -38,6 +49,7 @@ const Moderation = () => {
     setId(competitor.id);
     setName(competitor.name);
     selectType(competitor.type);
+    setStatus(competitor.status);
     setAvatar(getAvatar(competitor.type));
   };
 
@@ -109,12 +121,27 @@ const Moderation = () => {
           >
             Enviar
           </Button>
-          <Button disabled={!id} onClick={save}>
-            Guardar
-          </Button>
-          <Button type="primary" danger disabled={!id} onClick={remove}>
-            Eliminar
-          </Button>
+          <Popconfirm
+            title="Calcular el puntaje"
+            description="¿Seguro?"
+            onConfirm={save}
+            okText="Si"
+            cancelText="No"
+          >
+            <Button disabled={!id || status === "saved"}>Guardar</Button>
+          </Popconfirm>
+
+          <Popconfirm
+            title="Eliminar el registro"
+            description="¿Seguro?"
+            onConfirm={remove}
+            okText="Si"
+            cancelText="No"
+          >
+            <Button type="primary" danger disabled={!id}>
+              Eliminar
+            </Button>
+          </Popconfirm>
         </Space>
       </Space>
 
