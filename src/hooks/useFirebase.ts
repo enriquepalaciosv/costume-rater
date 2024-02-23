@@ -45,6 +45,11 @@ export const useFirebase = () => {
         name,
         type,
         status: "new",
+        scores: [
+          {
+            id: 0,
+          },
+        ],
       };
       await set(newCompetitorRef, competitorData);
       return newCompetitorRef.key;
