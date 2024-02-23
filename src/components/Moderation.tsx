@@ -2,15 +2,12 @@ import React, { ChangeEvent } from "react";
 import { Space, Image, Input, Select, Button, Typography, List } from "antd";
 import { getAvatar, avatars } from "../utils/avatar-util";
 import { useState } from "react";
+import { useFirebase } from "../hooks/useFirebase";
 
-interface FirebaseCompetitor {
-  id: string;
-  name: string;
-  type: string;
-}
+const Moderation = () => {
+  const { saveCompetitor, updateCompetitor, deleteCompetitor } = useFirebase();
 
-function Moderation() {
-  const [current, setCurrent] = useState<FirebaseCompetitor>();
+  const [id, setId] = useState<string>();
   const [name, setName] = useState<string>();
   const [type, setType] = useState<string>();
   const [avatar, setAvatar] = useState(getAvatar());
@@ -29,24 +26,24 @@ function Moderation() {
   ];
 
   const reset = () => {
-    setCurrent(undefined);
+    setId(undefined);
     setName(undefined);
     setType(undefined);
     setAvatar(getAvatar());
   };
 
-  const select = (competitor: FirebaseCompetitor) => {
-    setCurrent(competitor);
+  const select = (competitor: any) => {
+    setId(competitor.id);
     setName(competitor.name);
-    setAvatar(getAvatar(competitor.type));
     selectType(competitor.type);
+    setAvatar(getAvatar(competitor.type));
   };
 
   const selectType = (avatarId?: string) => {
     if (avatarId) {
       setAvatar(getAvatar(avatarId));
       const avatar: any = avatars.find((av) => av.value === avatarId);
-      setType(avatar);
+      setType(avatar.value);
     } else {
       setAvatar(getAvatar());
     }
@@ -54,6 +51,27 @@ function Moderation() {
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
+  };
+
+  const send = async () => {
+    if (name && type) {
+      const competitorId = await saveCompetitor(name, type);
+      setId(competitorId!);
+    }
+  };
+
+  const save = async () => {
+    if (id) {
+      await updateCompetitor(id, { name, type, status: "saved" });
+      reset();
+    }
+  };
+
+  const remove = async () => {
+    if (id) {
+      await deleteCompetitor(id);
+      reset();
+    }
   };
 
   return (
@@ -64,7 +82,7 @@ function Moderation() {
         style={{ display: "flex", alignItems: "center" }}
       >
         <Image src={avatar} width={200} />
-        {current && <Typography.Text disabled>{current.id}</Typography.Text>}
+        {id && <Typography.Text disabled>{id}</Typography.Text>}
         <Select
           style={{ width: "250px" }}
           placeholder="Tipo"
@@ -84,17 +102,15 @@ function Moderation() {
         <Space>
           <Button
             type="primary"
-            disabled={
-              current?.id !== undefined || (!current && (!name || !type))
-            }
-            onClick={() =>
-              setCurrent({ name: "name", type: "Group", id: "12345" })
-            }
+            disabled={id !== undefined || (!id && (!name || !type))}
+            onClick={send}
           >
             Enviar
           </Button>
-          <Button disabled={!current}>Guardar</Button>
-          <Button type="primary" danger disabled={!current}>
+          <Button disabled={!id} onClick={save}>
+            Guardar
+          </Button>
+          <Button type="primary" danger disabled={!id} onClick={remove}>
             Eliminar
           </Button>
         </Space>
@@ -112,6 +128,6 @@ function Moderation() {
       />
     </div>
   );
-}
+};
 
 export default Moderation;
