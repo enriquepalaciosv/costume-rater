@@ -13,13 +13,8 @@ export const Rater: React.FC = () => {
   const watchNew = (collection?: any[]) => {
     if (collection) {
       const found = collection?.find((el) => el.status === "new");
-      if (found) {
-        setCurrent(found);
-        setAvatar(getAvatar(found.type));
-      } else {
-        setCurrent(undefined);
-        setAvatar(getAvatar());
-      }
+      setCurrent(found);
+      setAvatar(getAvatar(found?.type));
     }
   };
 
