@@ -146,7 +146,7 @@ const Moderation = () => {
       </Space>
 
       <List
-        style={{ marginTop: "16px" }}
+        style={{ marginTop: "64px" }}
         bordered
         dataSource={competitors}
         renderItem={(item, index) => (
