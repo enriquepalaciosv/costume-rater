@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { List, Space, Typography, Rate, Image, Flex, Spin } from "antd";
 import { getAvatar } from "../utils/avatar-util";
 import { useFirebase } from "../hooks/useFirebase";
+import { v4 as uuidv4 } from "uuid";
 
 interface Score {
   fun: number;
@@ -12,6 +13,20 @@ interface Score {
 }
 
 export const Rater: React.FC = () => {
+  const [uniqueId, setUniqueId] = useState("");
+
+  useEffect(() => {
+    const storedUniqueId = localStorage.getItem("uniqueId");
+
+    if (storedUniqueId) {
+      setUniqueId(storedUniqueId);
+    } else {
+      const newUniqueId = uuidv4();
+      setUniqueId(newUniqueId);
+      localStorage.setItem("uniqueId", newUniqueId);
+    }
+  }, []);
+
   const [current, setCurrent] = useState<any>();
   const [allCompetitors, setAllCompetitors] = useState<any[]>();
   const [avatar, setAvatar] = useState<string>();
@@ -35,23 +50,21 @@ export const Rater: React.FC = () => {
   const updateScore = useCallback(
     (value: number, category: string) => {
       score[category as keyof Score] = value;
-      const dbItem = { id: "453451234", score };
+      const dbItem = { id: uniqueId, score };
 
       const index = current.scores.findIndex(
         (item: any) => item.id === dbItem.id
       );
 
       if (index !== -1) {
-        // Object exists, replace it
         current.scores[index] = dbItem;
       } else {
-        // Object doesn't exist, push it
         current.scores.push(dbItem);
       }
 
       updateCompetitor(current.id, current);
     },
-    [score, current]
+    [score, current, uniqueId, updateCompetitor]
   );
 
   const watchNew = (collection?: any[]) => {
