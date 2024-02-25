@@ -2,20 +2,44 @@ import React, { useState } from "react";
 import { Button, Flex, List, Typography } from "antd";
 import useFirebase from "../hooks/useFirebase";
 
-function Liderboard() {
-  //   const categories = [
-  //     { label: "Mejor de todos", evaluation: "score", items: [] },
-  //     { label: "Más divertido", evaluation: "fun", items: [] },
-  //   ];
-  const [allCompetitors, setAllCompetitors] = useState<any[]>();
+interface Nominated {
+  name: string;
+  type: string;
+  score: number;
+  fun: number;
+  hand: number;
+  makeup: number;
+  original: number;
+  runway: number;
+}
 
+interface Category {
+  label: string;
+  evaluation: string;
+  items?: Nominated[];
+}
+
+function Liderboard() {
+  const [categories, setCategories] = useState<Category[]>();
   const { getAllCompetitors } = useFirebase();
 
   const getWinners = async () => {
     const all = await getAllCompetitors();
     all?.forEach((competitor) => setScore(competitor));
-    setAllCompetitors(all);
-    //categories[0].items = all?.sort((a, b) => b.score - a.score).slice(0, 3)};
+
+    const summary: Category[] = [
+      {
+        label: "Mejor de todos",
+        evaluation: "score",
+        items: all?.sort((a, b) => b.score - a.score),
+      },
+      {
+        label: "Más divertido",
+        evaluation: "fun",
+        items: all?.sort((a, b) => b.fun - a.fun),
+      },
+    ];
+    setCategories(summary);
   };
 
   const setScore = (competitor: any) => {
@@ -42,20 +66,23 @@ function Liderboard() {
           Calcular
         </Button>
       </Flex>
-      <List
-        bordered
-        header={<b>Mejor de todos</b>}
-        dataSource={allCompetitors
-          ?.sort((a, b) => b.score - a.score)
-          .slice(0, 3)}
-        renderItem={(item, index) => (
-          <List.Item>
-            <Typography.Title level={3}>{`#${index + 1} `}</Typography.Title>
-            {`${item.name} `}
-            <Typography.Text mark>{`[${item.score}]`}</Typography.Text>
-          </List.Item>
-        )}
-      />
+      {categories?.map((category) => (
+        <List
+          bordered
+          style={{ marginBottom: "16px" }}
+          header={<b>{category.label}</b>}
+          dataSource={category.items?.slice(0, 3)}
+          renderItem={(item, index) => (
+            <List.Item>
+              <Typography.Title level={3}>{`#${index + 1} `}</Typography.Title>
+              {`${item.name} `}
+              <Typography.Text mark>{`[${
+                item[category.evaluation as keyof Nominated]
+              }]`}</Typography.Text>
+            </List.Item>
+          )}
+        />
+      ))}
     </Flex>
   );
 }
