@@ -1,14 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import './index.css';
-import App from './App';
-import Moderation from './components/Moderation';
-import Scoreboard from './components/Scoreboard';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
+import App from "./App";
+import Moderation from "./components/Moderation";
+import Liderboard from "./components/Liderboard";
+import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([
   {
@@ -20,13 +17,13 @@ const router = createBrowserRouter([
     element: <Moderation />,
   },
   {
-    path: "/scoreboard",
-    element: <Scoreboard />,
+    path: "/liderboard",
+    element: <Liderboard />,
   },
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
