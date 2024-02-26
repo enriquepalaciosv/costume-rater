@@ -26,17 +26,85 @@ function Liderboard() {
   const getWinners = async () => {
     const all = await getAllCompetitors();
     all?.forEach((competitor) => setScore(competitor));
-
     const summary: Category[] = [
-      {
-        label: "Mejor de todos",
-        evaluation: "score",
-        items: all?.sort((a, b) => b.score - a.score),
-      },
       {
         label: "Más divertido",
         evaluation: "fun",
         items: all?.sort((a, b) => b.fun - a.fun),
+      },
+      {
+        label: "Hecho a mano",
+        evaluation: "hand",
+        items: all?.sort((a, b) => b.hand - a.hand),
+      },
+      {
+        label: "Mejor maquillaje",
+        evaluation: "makeup",
+        items: all?.sort((a, b) => b.makeup - a.makeup),
+      },
+      {
+        label: "Más original",
+        evaluation: "original",
+        items: all?.sort((a, b) => b.original - a.original),
+      },
+      {
+        label: "Mejor pasarela",
+        evaluation: "runway",
+        items: all?.sort((a, b) => b.runway - a.runway),
+      },
+      {
+        label: "Mejor niño",
+        evaluation: "score",
+        items: all
+          ?.filter((it) => it.type === "Boy")
+          .sort((a, b) => b.score - a.score),
+      },
+      {
+        label: "Mejor niña",
+        evaluation: "score",
+        items: all
+          ?.filter((it) => it.type === "Girl")
+          .sort((a, b) => b.score - a.score),
+      },
+      {
+        label: "Mejor Jóven (mujer)",
+        evaluation: "score",
+        items: all
+          ?.filter((it) => it.type === "YoungFemale")
+          .sort((a, b) => b.score - a.score),
+      },
+      {
+        label: "Mejor Jóven (varón)",
+        evaluation: "score",
+        items: all
+          ?.filter((it) => it.type === "YoungMale")
+          .sort((a, b) => b.score - a.score),
+      },
+      {
+        label: "Mejor Adulto (varón)",
+        evaluation: "score",
+        items: all
+          ?.filter((it) => it.type === "AdultMale")
+          .sort((a, b) => b.score - a.score),
+      },
+      {
+        label: "Mejor Adulto (mujer)",
+        evaluation: "score",
+        items: all
+          ?.filter((it) => it.type === "AdultFemale")
+          .sort((a, b) => b.score - a.score),
+      },
+      {
+        label: "Mejor disfraz grupo",
+        evaluation: "score",
+        items: all
+          ?.filter((it) => it.type === "Group")
+          .sort((a, b) => b.score - a.score),
+      },
+      {
+        label: "Mejor de todos",
+        evaluation: "score",
+        items: all?.sort((a, b) => b.score - a.score),
       },
     ];
     setCategories(summary);
@@ -68,6 +136,7 @@ function Liderboard() {
       </Flex>
       {categories?.map((category) => (
         <List
+          key={category.label}
           bordered
           style={{ marginBottom: "16px" }}
           header={<b>{category.label}</b>}
