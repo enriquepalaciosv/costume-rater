@@ -140,7 +140,7 @@ function Liderboard() {
           bordered
           style={{ marginBottom: "16px" }}
           header={<b>{category.label}</b>}
-          dataSource={category.items?.slice(0, 3)}
+          dataSource={category.items }
           renderItem={(item, index) => (
             <List.Item>
               <Typography.Title level={3}>{`#${index + 1} `}</Typography.Title>
